@@ -1,16 +1,16 @@
 //Isayev Anton
-// VFW Project 4
+// MIU
 window.addEventListener("DOMContentLoaded", function(){
 
 
-	function $ (x){
+	function ge (x){
 		var theElement = document.getElementById(x);
 		return theElement;
 	}
 	
 function makeChoises (){
 	var formTag = document.getElementsByTagName("form")
-		selectLi = $('gameinfos'),
+		selectLi = ge('gameinfos'),
 		makeGameinfo = document.createElement('select');
 		makeGameinfo.setAttribute("id","groups");
 	for (var i = 0, j = gameGroups.length; i<j; i++){
@@ -34,18 +34,18 @@ function getSelectedRadio(){
 
 
 function getCheckboxCategory(){
-	if($('coop').checked){
-		coopValue = $('coop').value;
+	if(ge('coop').checked){
+		coopValue = ge('coop').value;
 	}else{
 		coopValue = "No";
 	}
-		if($('multyplayer').checked){
-		multyplayerValue = $('multyplayer').value;
+		if(ge('multyplayer').checked){
+		multyplayerValue = ge('multyplayer').value;
 	}else{
 		multyplayerValue = "No";
 	}
-		if($('singleplayer').checked){
-		singleplayerValue = $('singleplayer').value;
+		if(ge('singleplayer').checked){
+		singleplayerValue = ge('singleplayer').value;
 	}else{
 		singleplayerValue = "No";
 	}
@@ -54,18 +54,18 @@ function getCheckboxCategory(){
 function toggleControls(n){
 	switch(n){
 		case "on":
-			$('AddGameForm').style.display = "none";
-			$('clear').style.display = "inline";
-			$('displayLink').style.display = "none";
-			$('addNew').style.display = "inline";
-			$('submit').style.display = "none";
+			ge('AddGameForm').style.display = "none";
+			ge('clear').style.display = "inline";
+			ge('displayLink').style.display = "none";
+			ge('addNew').style.display = "inline";
+			ge('submit').style.display = "none";
 			break;
 		case "off":
-			$('AddGameForm').style.display = "block";
-			$('clear').style.display = "inline";
-			$('displayLink').style.display = "inline";
-			$('addNew').style.display = "none";
-			$('items').style.display = "none";
+			ge('AddGameForm').style.display = "block";
+			ge('clear').style.display = "inline";
+			ge('displayLink').style.display = "inline";
+			ge('addNew').style.display = "none";
+			ge('items').style.display = "none";
 			break;
 		default:
 			return false;
@@ -81,17 +81,17 @@ function storeData(key){
 	getCheckboxCategory();
 	getSelectedRadio();
 	var item 			= {};
-	item.gname 			=["Game name:", $('gname').value];
-	item.rday 			=["Relise date:", $('rday').value];
-	item.aat 			=["Available at:", $('aat').value];
-	item.pri 			=["Price:", $('pri').value];
-	item.gametype 		=["Game type:", $('groups').value];
+	item.gname 			=["Game name:", ge('gname').value];
+	item.rday 			=["Relise date:", ge('rday').value];
+	item.aat 			=["Available at:", ge('aat').value];
+	item.pri 			=["Price:", ge('pri').value];
+	item.gametype 		=["Game type:", ge('groups').value];
 	item.console 		=["Console:", consoleValue];
 	item.coop 			=["Co-op Game:", coopValue];
 	item.multyplayer 	=["Multi-player Game:", multyplayerValue];
 	item.singleplayer 	=["Single-player Game:", singleplayerValue];
-	item.priority 		=["Priority of the Game:", $('priority').value];
-	item.addinfo		=["Aditional Info:", $('aditionalinfo').value]
+	item.priority 		=["Priority of the Game:", ge('priority').value];
+	item.addinfo		=["Aditional Info:", ge('aditionalinfo').value]
 	localStorage.setItem(id, JSON.stringify(item));
 	alert("Game added");
 }
@@ -108,7 +108,7 @@ function getData(){
 	var makeList = document.createElement('ul');
 	makeDiv.appendChild(makeList);
 	document.body.appendChild(makeDiv);
-	$('items').style.display = "block";
+	ge('items').style.display = "block";
 	for(var i=0, len=localStorage.length; i<len;i++){
 		var makeli = document.createElement('li');
 		var linksLi = document.createElement('li');
@@ -173,12 +173,12 @@ function editItem(){
 
 	toggleControls("off");
 
-	$('gname').value = item.gname[1];
-	$('rday').value = item.rday[1];
-	$('aat').value = item.aat[1];
-	$('pri').value = item.pri[1];
-	$('groups').value = item.gametype[1];
-	$('aditionalinfo').value = item.addinfo[1];
+	ge('gname').value = item.gname[1];
+	ge('rday').value = item.rday[1];
+	ge('aat').value = item.aat[1];
+	ge('pri').value = item.pri[1];
+	ge('groups').value = item.gametype[1];
+	ge('aditionalinfo').value = item.addinfo[1];
 	var radios = document.forms[0].console;
 	for( var i=0; i<radios.length; i++){
 		if(radios[i].value == "XBox" && item.console[1] == "XBox") {
@@ -194,21 +194,21 @@ function editItem(){
 		}
 	}
 	if(item.coopValue[i] == "coop") {
-		$('Co-op Game:').setAttribute("checked", "checked");
+		ge('Co-op Game:').setAttribute("checked", "checked");
 	}
 	if(item.multyplayerValue[i] == "multyplayer") {
-		$('Multi-player Game:').setAttribute("checked", "checked");
+		ge('Multi-player Game:').setAttribute("checked", "checked");
 	}	
 	if(item.singleplayerValue[i] == "singleplayer") {
-		$('Single-player Game:').setAttribute("checked", "checked");
+		ge('Single-player Game:').setAttribute("checked", "checked");
 	}
-	$('priority').value = item.priority[1];
-	$('aditionalinfo').value = item.addinfo[1];
+	ge('priority').value = item.priority[1];
+	ge('aditionalinfo').value = item.addinfo[1];
 
 	save.removeEventListener("click", storeData);
 
-	$('submit').value = "Edit Game";
-	var editSubmit = $('submit');
+	ge('submit').value = "Edit Game";
+	var editSubmit = ge('submit');
 	editSubmit.addEventListener("click", validate);
 	editSubmit.key = this.key;
 
@@ -236,11 +236,11 @@ function clearLocal(){
 };
 
 function validate(e){
-	var getGrops = $('groups');
-	var getGname = $('gname');
-	var getAat =  $('aat');
-	var getPri = $('pri');
-	var getRday = $('rday');
+	var getGrops = ge('groups');
+	var getGname = ge('gname');
+	var getAat 	 =  ge('aat');
+	var getPri   = ge('pri');
+	var getRday  = ge('rday');
 
 	errMsg.innerHTML = "";
 	getGrops.style.border = "1px solid black";
@@ -296,14 +296,14 @@ var gameGroups = ["---Chose Game type---","Action","RPG","Strategy","Racing","Si
 	coopValue = "No",
 	multyplayerValue = "No",
 	singleplayerValue = "No",
-	errMsg = $('errors');
+	errMsg = ge('errors');
 
 makeChoises();
  //click events
-var displayLink = $('displayLink');
+var displayLink = ge('displayLink');
 	displayLink.addEventListener("click", getData);
-	var clearLink = $('clear');
+	var clearLink = ge('clear');
 	clearLink.addEventListener("click", clearLocal);
-	var save = $('submit');
+	var save = ge('submit');
 	save.addEventListener("click", validate);
 });
